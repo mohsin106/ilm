@@ -42,6 +42,7 @@ function App() {
 
 // Todos Phase3
     const todoComponent = todosData.map(item => <TodoItem key={item.id} task={item}/>)
+    console.log(todoComponent)
     return (
         <div className="todo-list">
             {todoComponent}

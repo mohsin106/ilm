@@ -633,4 +633,135 @@ import { render } from "@testing-library/react"
 //     }
 // }
 // React Forms Part 2
+
+// React Form Practice
+class App extends Component {
+
+    constructor() {
+        super()
+        this.state = {
+            firstName: "",
+            lastName: "",
+            age: "",
+            gender: "",
+            location: "",
+            diet: {
+                veg: false,
+                kosher: false,
+                halal: false
+            }
+        }
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(event) {
+        const {name, value, type, checked} = event.target
+        let newData
+        type === "checkbox" ? 
+            this.setState(prevState => {
+                return {
+                    diet: {
+                        ...prevState.diet,
+                        [name]: checked
+                    }
+                }
+                
+            }) 
+        : this.setState({[name]: value})
+    }
+    render() {
+        return(
+            <main>
+                <form>
+                    <input 
+                        type="text"
+                        name="firstName" 
+                        onChange={this.handleChange} 
+                        placeholder="First Name"
+                    />
+                    <br/>
+                    <input 
+                        type="text"
+                        name="lastName" 
+                        onChange={this.handleChange} 
+                        placeholder="Last Name"
+                    />
+                    <br/>
+                    <input 
+                        type="text"
+                        name="age" 
+                        onChange={this.handleChange} 
+                        placeholder="Age"
+                    />
+                    <br/>
+                    Gender:
+                    <label>
+                     <input
+                         type="radio"
+                         name="gender"
+                         value="male"
+                         checked={this.state.gender === "male"}
+                         onChange={this.handleChange}
+                         />Male
+                    </label>
+                    <label>
+                     <input
+                         type="radio"
+                         name="gender"
+                         value="female"
+                         checked={this.state.gender === "female"}
+                         onChange={this.handleChange}
+                         />Female
+                    </label><br/>
+                    <select
+                        name="location"
+                        value={this.state.location}
+                        onChange={this.handleChange}
+                    >
+                        <option value="">-- Please select a location --</option>
+                        <option value="Bahamas">Bahamas</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Dubai">Dubai</option>    
+                    </select>
+                    <br/>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="veg"
+                            checked={this.state.diet.veg}
+                            onChange={this.handleChange}
+                            />Veg
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="kosher"
+                            checked={this.state.diet.kosher}
+                            onChange={this.handleChange}
+                            />Kosher
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="halal"
+                            checked={this.state.diet.halal}
+                            onChange={this.handleChange}
+                            />Halal
+                    </label>
+                    <br/>
+                    {/* <button onClick={() => alert({data =>})}>Submit</button> */}
+                    <h2>Entered information:</h2>
+                    <p>Your name: {this.state.firstName} {this.state.lastName}</p>
+                    <p>Your age: {this.state.age}</p>
+                    <p>Your gender: {this.state.gender}</p>
+                    <p>Your destination: {this.state.location}</p>
+                    <p>
+                        Your dietary restrictions: {this.state.diet.veg} {this.state.diet.kosher} {this.state.diet.halal}
+                    </p>
+                </form>
+            </main>
+        )
+    }
+}
+// React Form Practice
 export default App

@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-// import Header from "./components/Header"
+import Header from "./components/Header"
 // import MainContent from "./components/MainContent"
 // import Footer from "./components/Footer"
 // import ContactCard from "./components/ContactCard"
@@ -10,10 +10,12 @@ import Product from "./components/Product"
 import todosData from "./components/todosData"
 import TodoItem from "./components/TodoItem"
 import randomcolor from "randomcolor"
-import Conditional from "./components/Coditional"
+// import Coditional from "./components/Coditional"
 import './style.css'
 import { render } from "@testing-library/react"
-
+import Form from "./components/FormContainer"
+import MemeGenerator from "./components/MemeGenerator"
+import { useState } from "react"
 //  Joke project
 // function App() {
 //    const jokeComponents = jokesData.map(function (joke) {
@@ -635,133 +637,208 @@ import { render } from "@testing-library/react"
 // React Forms Part 2
 
 // React Form Practice
-class App extends Component {
+// class App extends Component {
 
-    constructor() {
-        super()
-        this.state = {
-            firstName: "",
-            lastName: "",
-            age: "",
-            gender: "",
-            location: "",
-            diet: {
-                veg: false,
-                kosher: false,
-                halal: false
-            }
-        }
-        this.handleChange = this.handleChange.bind(this)
-    }
+//     constructor() {
+//         super()
+//         this.state = {
+//             firstName: "",
+//             lastName: "",
+//             age: "",
+//             gender: "",
+//             location: "",
+//             veg: false,
+//             kosher: false,
+//             halal: false
+//         }
+//         this.handleChange = this.handleChange.bind(this)
+//     }
 
-    handleChange(event) {
-        const {name, value, type, checked} = event.target
-        let newData
-        type === "checkbox" ? 
-            this.setState(prevState => {
-                return {
-                    diet: {
-                        ...prevState.diet,
-                        [name]: checked
-                    }
-                }
+//     handleChange(event) {
+//         const {name, value, type, checked} = event.target
+//         let newData
+//         type === "checkbox" ? 
+//             this.setState(prevState => {
+//                 return {
+//                     [name]: checked
+//                 }
                 
-            }) 
-        : this.setState({[name]: value})
-    }
-    render() {
-        return(
-            <main>
-                <form>
-                    <input 
-                        type="text"
-                        name="firstName" 
-                        onChange={this.handleChange} 
-                        placeholder="First Name"
-                    />
-                    <br/>
-                    <input 
-                        type="text"
-                        name="lastName" 
-                        onChange={this.handleChange} 
-                        placeholder="Last Name"
-                    />
-                    <br/>
-                    <input 
-                        type="text"
-                        name="age" 
-                        onChange={this.handleChange} 
-                        placeholder="Age"
-                    />
-                    <br/>
-                    Gender:
-                    <label>
-                     <input
-                         type="radio"
-                         name="gender"
-                         value="male"
-                         checked={this.state.gender === "male"}
-                         onChange={this.handleChange}
-                         />Male
-                    </label>
-                    <label>
-                     <input
-                         type="radio"
-                         name="gender"
-                         value="female"
-                         checked={this.state.gender === "female"}
-                         onChange={this.handleChange}
-                         />Female
-                    </label><br/>
-                    <select
-                        name="location"
-                        value={this.state.location}
-                        onChange={this.handleChange}
-                    >
-                        <option value="">-- Please select a location --</option>
-                        <option value="Bahamas">Bahamas</option>
-                        <option value="Turkey">Turkey</option>
-                        <option value="Dubai">Dubai</option>    
-                    </select>
-                    <br/>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="veg"
-                            checked={this.state.diet.veg}
-                            onChange={this.handleChange}
-                            />Veg
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="kosher"
-                            checked={this.state.diet.kosher}
-                            onChange={this.handleChange}
-                            />Kosher
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="halal"
-                            checked={this.state.diet.halal}
-                            onChange={this.handleChange}
-                            />Halal
-                    </label>
-                    <br/>
-                    {/* <button onClick={() => alert({data =>})}>Submit</button> */}
-                    <h2>Entered information:</h2>
-                    <p>Your name: {this.state.firstName} {this.state.lastName}</p>
-                    <p>Your age: {this.state.age}</p>
-                    <p>Your gender: {this.state.gender}</p>
-                    <p>Your destination: {this.state.location}</p>
-                    <p>
-                        Your dietary restrictions: {this.state.diet.veg} {this.state.diet.kosher} {this.state.diet.halal}
-                    </p>
-                </form>
-            </main>
-        )
-    }
-}
+//             }) 
+//         : this.setState({[name]: value})
+//     }
+//     render() {
+//         return(
+//             <main>
+//                 <form>
+//                     <input 
+//                         type="text"
+//                         name="firstName" 
+//                         onChange={this.handleChange} 
+//                         placeholder="First Name"
+//                     />
+//                     <br/>
+//                     <input 
+//                         type="text"
+//                         name="lastName" 
+//                         onChange={this.handleChange} 
+//                         placeholder="Last Name"
+//                     />
+//                     <br/>
+//                     <input 
+//                         type="text"
+//                         name="age" 
+//                         onChange={this.handleChange} 
+//                         placeholder="Age"
+//                     />
+//                     <br/>
+//                     Gender:
+//                     <label>
+//                      <input
+//                          type="radio"
+//                          name="gender"
+//                          value="male"
+//                          checked={this.state.gender === "male"}
+//                          onChange={this.handleChange}
+//                          />Male
+//                     </label>
+//                     <label>
+//                      <input
+//                          type="radio"
+//                          name="gender"
+//                          value="female"
+//                          checked={this.state.gender === "female"}
+//                          onChange={this.handleChange}
+//                          />Female
+//                     </label><br/>
+//                     <select
+//                         name="location"
+//                         value={this.state.location}
+//                         onChange={this.handleChange}
+//                     >
+//                         <option value="">-- Please select a location --</option>
+//                         <option value="Bahamas">Bahamas</option>
+//                         <option value="Turkey">Turkey</option>
+//                         <option value="Dubai">Dubai</option>    
+//                     </select>
+//                     <br/>
+//                     <label>
+//                         <input
+//                             type="checkbox"
+//                             name="veg"
+//                             checked={this.state.veg}
+//                             onChange={this.handleChange}
+//                             />Veg
+//                     </label>
+//                     <label>
+//                         <input
+//                             type="checkbox"
+//                             name="kosher"
+//                             checked={this.state.kosher}
+//                             onChange={this.handleChange}
+//                             />Kosher
+//                     </label>
+//                     <label>
+//                         <input
+//                             type="checkbox"
+//                             name="halal"
+//                             checked={this.state.halal}
+//                             onChange={this.handleChange}
+//                             />Halal
+//                     </label>
+//                     <br/>
+//                     {/* <button onClick={() => alert({data =>})}>Submit</button> */}
+//                     <h2>Entered information:</h2>
+//                     <p>Your name: {this.state.firstName} {this.state.lastName}</p>
+//                     <p>Your age: {this.state.age}</p>
+//                     <p>Your gender: {this.state.gender}</p>
+//                     <p>Your destination: {this.state.location}</p>
+//                     <p>
+//                         Your dietary restrictions: 
+//                     </p>
+//                     <p>Veg: {this.state.veg ? "Yes" : "No"}</p>
+//                     <p>Kosher: {this.state.kosher ? "Yes" : "No"}</p>
+//                     <p>Hala:{this.state.halal ? "Yes" : "No"}</p>
+//                 </form>
+//             </main>
+//         )
+//     }
+// }
 // React Form Practice
+
+// React Container & Component Architecture
+// function App() {
+//     return(
+//         <Form />
+//     )
+// }
+// React Container & Component Architecture
+
+// React Meme Generator Capstone Project
+// function App() {
+//     return(
+//         <div>
+//             <Header />
+//             <MemeGenerator />
+//         </div>
+//     )   
+// }
+// React Meme Generator Capstone Project
+
+// React Writing Modern React Apps
+// this was just a lesson on some new things that are available with the new versions of React
+    // ex: you can create the state variable outside of the constructor function
+    // ex: you no longer need to bind handleClick/Change functions inside of the contructor when you start using arrow functions
+    // have a look at the meme generator code above to see these new feature in action
+// React Writing Modern React Apps
+
+// Hooks Intro
+// briefly described how the use of class components is being replaced with React Hook. This means you can use function call all through out your project.
+// initially class compoenents were used to maintain state, but with Hooks you no longer need class componenets.
+// Hooks Intro
+
+// useState() Part1 - Creating state
+// function App() {
+//     // this returns an array called "value". It contains 2 indices. Index 0 contains the value "Yes", and index 1 contains a blank function.
+//     // const value = useState("Yes")
+
+//     // a better way to use state is to destructure the value array like this:
+//     const [value] = useState("No")
+
+//     // another example
+//     const [age] = useState("40")
+//     console.log(value)
+//     return(
+//         <div>
+//             {/* <h1>Is state important to know? {value[0]}</h1> */}
+//             {/* When you destructure the value array above, you then then simply just print value without providing an index. */}
+//             <h1>Is state important to know? {value}</h1>
+//             <h1>What is your age? {age}</h1>
+//         </div>
+//     )
+// }
+// useState() Part1 - Creating state
+
+// useState() Part 2 - Changing State
+function App() {
+    const [count, setCount] = useState(0)
+
+    function increment() {
+        setCount(prevCount => prevCount + 1)
+    }
+    function decrement() {
+        setCount(prevCount => prevCount - 1)
+    }
+    return(
+        <div>
+            <h1>{count}</h1>
+            {/* This is one way to call the setCount function which gets the previous value of count and adds 1 to it. */}
+            {/* <button onClick={() => setCount(prevCount => prevCount + 1)}>Change</button> */}
+
+            {/* A different way to increment count. Here you call the increment function which does the increment and sets the new state of count */}
+            <button onClick={increment}>Increment</button>
+            <button onClick={decrement}>Decrement</button>
+        </div>
+    )
+}
+// useState() Part 2 - Changing State
 export default App

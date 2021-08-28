@@ -15,7 +15,7 @@ import './style.css'
 import { render } from "@testing-library/react"
 import Form from "./components/FormContainer"
 import MemeGenerator from "./components/MemeGenerator"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 //  Joke project
 // function App() {
 //    const jokeComponents = jokesData.map(function (joke) {
@@ -819,26 +819,109 @@ import { useState } from "react"
 // useState() Part1 - Creating state
 
 // useState() Part 2 - Changing State
-function App() {
-    const [count, setCount] = useState(0)
+// function App() {
+//     const [count, setCount] = useState(0)
 
-    function increment() {
-        setCount(prevCount => prevCount + 1)
-    }
-    function decrement() {
-        setCount(prevCount => prevCount - 1)
-    }
-    return(
-        <div>
-            <h1>{count}</h1>
-            {/* This is one way to call the setCount function which gets the previous value of count and adds 1 to it. */}
-            {/* <button onClick={() => setCount(prevCount => prevCount + 1)}>Change</button> */}
+//     function increment() {
+//         setCount(prevCount => prevCount + 1)
+//     }
+//     function decrement() {
+//         setCount(prevCount => prevCount - 1)
+//     }
+//     return(
+//         <div>
+//             <h1>{count}</h1>
+//             {/* This is one way to call the setCount function which gets the previous value of count and adds 1 to it. */}
+//             {/* <button onClick={() => setCount(prevCount => prevCount + 1)}>Change</button> */}
 
-            {/* A different way to increment count. Here you call the increment function which does the increment and sets the new state of count */}
-            <button onClick={increment}>Increment</button>
-            <button onClick={decrement}>Decrement</button>
-        </div>
-    )
-}
+//             {/* A different way to increment count. Here you call the increment function which does the increment and sets the new state of count */}
+//             <button onClick={increment}>Increment</button>
+//             <button onClick={decrement}>Decrement</button>
+//         </div>
+//     )
+// }
 // useState() Part 2 - Changing State
+
+// useEffect() Part 1
+// The useEffect() hook replaces three lifecycle methods (componentDidMount, componentDidUpdate, componentWillUnmount)
+// function App() {
+//     const [count, setCount] = useState(0)
+//     const [color, setColor] = useState("")
+
+//     function increment() {
+//         setCount(prevCount => prevCount + 1)
+//     }
+//     function decrement() {
+//         setCount(prevCount => prevCount - 1)
+//     }
+
+//     // You can update the state of color when the component loads. You need to provide the second array parameter [count] so that the color only changes when the count changes. Otherwise you will get stuck in an infinte loop.
+//     useEffect(() => {
+//         setColor(randomcolor())
+//     }, [count])
+
+//      // If you want the color to change only once when the component loads, then remove any variables inside of the array parameter.
+//      // This allows you to run code once for the first time when the component loads.
+//     //  useEffect(() => {
+//     //     setColor(randomcolor())
+//     // }, [])
+
+//     return(
+//         <div>
+//             <h1 style={{color: color}}>{count}</h1>
+//             {/* This is one way to call the setCount function which gets the previous value of count and adds 1 to it. */}
+//             {/* <button onClick={() => setCount(prevCount => prevCount + 1)}>Change</button> */}
+
+//             {/* A different way to increment count. Here you call the increment function which does the increment and sets the new state of count */}
+//             <button onClick={increment}>Increment</button>
+//             <button onClick={decrement}>Decrement</button>
+//         </div>
+//     )
+// }
+// useEffect() Part 1
+
+// useEffect() Part 2
+// function App() {
+//     const [count, setCount] = useState(0)
+//     const [color, setColor] = useState("")
+    
+//     // You can have multiple useEffect() functions in your App. In this useEffect() function the setInterval function only loads once since the array[] object is empty.
+//     // setInterval is used to run something on an interval basis. Here we're counting up by adding one to the previous state of count.
+//     // setInterval also returns an ID that we're storing in the intervalId variable. This is used later to clean up the component.
+//     // The return() code is used to unmount the component when/after its done running. This is for cleaning up your components.
+//     // The clearInterval() function takes the intervalId and clears the setInterval() function after its done being used.
+//     useEffect(() => {
+//         const intervalId = setInterval(() => {
+//             setCount(prevCount => prevCount + 1)
+//         }, 1000)
+//         return () => {
+//             clearInterval(intervalId)
+//         }
+//         // Can also write the return function like this.
+//         // return () => clearInterval(intervalId)
+//     }, [])
+    
+//     useEffect(() => {
+//         // We moved the setInterval function out from here because it was loading a new instance of setInterval everytime [count] changed. This caused the numbers to increase by more than one since there were multiple setInterval() functions running.
+//         // setInterval(() => {
+//         //     setCount(prevCount => prevCount + 1)
+//         // }, 1000)
+//         setColor(randomcolor())
+//     }, [count])
+    
+//     return (
+//         <div>
+//             <h1 style={{color: color}}>{count}</h1>
+//         </div>
+//     )
+// }
+// useEffect() Part 2
+
+// React Project Ideas for Practicing
+// https://medium.freecodecamp.org/every-time-you-build-a-to-do-list-app-a-puppy-dies-505b54637a5d
+
+// https://medium.freecodecamp.org/want-to-build-something-fun-heres-a-list-of-sample-web-app-ideas-b991bce0ed9a
+
+// https://medium.freecodecamp.org/summer-is-over-you-should-be-coding-heres-yet-another-list-of-exciting-ideas-to-build-a95d7704d36d
+// // React Project Ideas for Practicing
 export default App

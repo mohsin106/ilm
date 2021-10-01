@@ -27,7 +27,10 @@ function App() {
         }
     }, [])
 
-
+    function handleClick (e) {
+        // e.preventDefault()
+        console.log("button clicked")
+    }
 
 
     useEffect(() => {
@@ -48,7 +51,12 @@ function App() {
                     </thead>
                     <tbody>
                         {results.map(item =>
-                            <tr key={item.id}><td>{item.firstName}</td><td>{item.lastName}</td>
+                            <tr key={item.id}>
+                                <td>{item.firstName}</td>
+                                <td>{item.lastName}</td>
+                                <td><button
+                                        onClick={() => handleClick()}
+                                    >ready for pickup</button></td>
                             </tr>
                         )}
                     </tbody>

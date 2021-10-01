@@ -56,7 +56,9 @@ function App() {
                                 <td>{item.lastName}</td>
                                 <td><button
                                         onClick={() => handleClick()}
-                                    >ready for pickup</button></td>
+                                    >ready for pickup
+                                    </button>
+                                </td>
                             </tr>
                         )}
                     </tbody>

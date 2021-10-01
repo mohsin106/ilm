@@ -36,6 +36,8 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "datatables.net": "^1.11.3",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "jquery": "^3.6.0"
   }
 }

@@ -7,35 +7,37 @@ function App() {
     const [API_URL, setApiUrl] = useState("https://raw.githubusercontent.com/mohsin106/ilm/main/dismissal-app/students.json")
     const [results, setResults] = useState([])
     const [loading, setLoading] = useState(false)
-
-    useEffect(async () => {
-        async function fetchData() {
-
-        }
-        try {  
-            setLoading(true)
-            const response = await fetch(API_URL)
-            const data = await response.json()
-            // console.log(data)
-            setResults(
-                data.students.map(item => {
-                    return item
-                })
-            )
-        } finally {
-            setLoading(false)
-        }
-    }, [])
-
-    function handleClick (e) {
-        // e.preventDefault()
-        console.log(e)
-    }
-
+    const [inputText, setInputText] = useState("")
 
     useEffect(() => {
-        fetch("https://swapi.dev/api/people/1/")
-    })
+        async function fetchData() {
+            try {  
+                setLoading(true)
+                const response = await fetch(API_URL)
+                const data = await response.json()
+                // console.log(data)
+                setResults(
+                    data.students.map(item => {
+                        return item
+                    })
+                )
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchData()
+    }, [])
+
+    function handleChange(e) {
+        setInputText(e.target.value)
+        // console.log(inputText)
+        // console.log(e)
+    }
+
+    function handleClick (obj) {
+        console.log(`button ${obj.id} was clicked for ${obj.firstName}`)
+    }
+
 
     return (
         <div>
@@ -56,7 +58,7 @@ function App() {
                                 <td>{item.lastName}</td>
                                 <td><button
                                         name={item.id}
-                                        onClick={() => handleClick()}
+                                        onClick={() => handleClick(item)}
                                     >ready for pickup
                                     </button>
                                 </td>
@@ -65,8 +67,14 @@ function App() {
                     </tbody>
                 </table>
             )}
+            <textarea
+                name="textArea"
+                value={inputText}
+                onChange={handleChange}
+            />
         </div>
     )
+
 }
 
 export default App

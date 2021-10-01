@@ -29,7 +29,7 @@ function App() {
 
     function handleClick (e) {
         // e.preventDefault()
-        console.log("button clicked")
+        console.log(e)
     }
 
 
@@ -55,6 +55,7 @@ function App() {
                                 <td>{item.firstName}</td>
                                 <td>{item.lastName}</td>
                                 <td><button
+                                        name={item.id}
                                         onClick={() => handleClick()}
                                     >ready for pickup
                                     </button>

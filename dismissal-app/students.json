@@ -6,17 +6,12 @@
           {
             "fName": "firstChildsFirstName",
             "lName": "firstChildsLastName",
-            "grade": "firstChildsGrade"
+            "grade": "firstGrade"
           },
           {
             "fName": "secondChildsFirstName",
             "lName": "secondChildsLastName",
-            "grade": "secondChildsGrade"
-          },
-          {
-            "fName": "thirdChildsFirstName",
-            "lName": "thirdChildsLastName",
-            "grade": "thirdChildsGrade"
+            "grade": "secondGrade"
           }
         ]
       },
@@ -26,17 +21,12 @@
           {
             "fName": "firstChildsFirstName",
             "lName": "firstChildsLastName",
-            "grade": "firstChildsGrade"
+            "grade": "thirdGrade"
           },
           {
             "fName": "secondChildsFirstName",
             "lName": "secondChildsLastName",
-            "grade": "secondChildsGrade"
-          },
-          {
-            "fName": "thirdChildsFirstName",
-            "lName": "thirdChildsLastName",
-            "grade": "thirdChildsGrade"
+            "grade": "fourthGrade"
           }
         ]
       },
@@ -46,7 +36,7 @@
           {
             "fName": "firstChildsFirstName",
             "lName": "firstChildsLastName",
-            "grade": "firstChildsGrade"
+            "grade": "fifthGrade"
           }
         ]
       }

@@ -17,7 +17,7 @@ function App() {
                 const data = await response.json()
                 // console.log(data)
                 setResults(
-                    data.students.map(item => {
+                    data.carTags.map(item => {
                         return item
                     })
                 )
@@ -29,16 +29,21 @@ function App() {
     }, [])
 
     function handleChange(e) {
-        setInputText(e.target.value)
+        const {value} = e.target
+        setInputText(value)
         // console.log(inputText)
         // console.log(e)
     }
 
     function handleClick (obj) {
-        console.log(`button ${obj.id} was clicked for ${obj.firstName}`)
+        for (let i = 0; i < obj.children.length; i++) {
+            // console.log(obj.children[i])
+            const {fName, lName, grade} = obj.children[i]
+            console.log(fName,lName, grade)
+        }
     }
 
-
+    // console.log(results)
     return (
         <div>
             {loading ? (
@@ -47,17 +52,16 @@ function App() {
                 <table>
                     <thead>
                         <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Car Tag</th>
                         </tr>
                     </thead>
                     <tbody>
                         {results.map(item =>
-                            <tr key={item.id}>
-                                <td>{item.firstName}</td>
-                                <td>{item.lastName}</td>
+                            <tr key={item.tagID}>
+                                <td>{item.tagID}</td>
+                                <td>{item.children.lName}</td>
                                 <td><button
-                                        name={item.id}
+                                        name={item.tagID}
                                         onClick={() => handleClick(item)}
                                     >ready for pickup
                                     </button>
@@ -72,6 +76,7 @@ function App() {
                 value={inputText}
                 onChange={handleChange}
             />
+            <h2>{inputText}</h2>
         </div>
     )
 

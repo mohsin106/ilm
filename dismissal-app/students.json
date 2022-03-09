@@ -1,53 +1,54 @@
 {
-"students": [{
-		"id": 1,
-		"carTag": "100",
-		"child1Name": "student1_name",
-		"child2Name": "student2_name",
-		"child1Grade": "first",
-		"child2Grade": "second"
-	},
-	{
-		"id": 2,
-		"carTag": "200",
-		"child1Name": "student1_name",
-		"child2Name": "student2_name",
-		"child1Grade": "third",
-		"child2Grade": "fourth"
-	},
-	{
-		"id": 3,
-		"carTag": "300",
-		"child1Name": "student1_name",
-		"child2Name": "student2_name",
-		"child1Grade": "fifth",
-		"child2Grade": "sixth"
-	},
-	{
-		"id": 4,
-		"carTag": "400",
-		"child1Name": "student1_name",
-		"child2Name": "student2_name",
-		"child1Grade": "seventh",
-		"child2Grade": "eighth"
-	},
-	{
-		"id": 5,
-		"carTag": "500",
-		"child1Name": "student1_name",
-		"child2Name": "student2_name",
-		"child1Grade": "ninth",
-		"child2Grade": "tenth"
-	},
-    {
-		"id": 6,
-		"carTag": "600",
-		"child1Name": "student1_name",
-		"child2Name": "student2_name",
-		"child3Name": "student3_name",
-		"child1Grade": "first",
-		"child2Grade": "second",
-		"child3Grade": "third"
-	}
-	]
+    "carTags": [
+      {
+        "tagID": "100",
+        "children": [
+          {
+            "fName": "firstChildsFirstName",
+            "lName": "firstChildsLastName",
+            "grade": "firstChildsGrade"
+          },
+          {
+            "fName": "secondChildsFirstName",
+            "lName": "secondChildsLastName",
+            "grade": "secondChildsGrade"
+          },
+          {
+            "fName": "thirdChildsFirstName",
+            "lName": "thirdChildsLastName",
+            "grade": "thirdChildsGrade"
+          }
+        ]
+      },
+      {
+        "tagID": "200",
+        "children": [
+          {
+            "fName": "firstChildsFirstName",
+            "lName": "firstChildsLastName",
+            "grade": "firstChildsGrade"
+          },
+          {
+            "fName": "secondChildsFirstName",
+            "lName": "secondChildsLastName",
+            "grade": "secondChildsGrade"
+          },
+          {
+            "fName": "thirdChildsFirstName",
+            "lName": "thirdChildsLastName",
+            "grade": "thirdChildsGrade"
+          }
+        ]
+      },
+      {
+        "tagID": "300",
+        "children": [
+          {
+            "fName": "firstChildsFirstName",
+            "lName": "firstChildsLastName",
+            "grade": "firstChildsGrade"
+          }
+        ]
+      }
+    ]
 }

@@ -1,33 +1,44 @@
 {
-"students": [{
-		"id": 1,
-		"firstName": "student1_firstName",
-		"lastName": "student1_lastName",
-		"carTag": "100"
-	},
-	{
-		"id": 2,
-		"firstName": "student2_firstName",
-		"lastName": "student2_lastName",
-		"carTag": "200"
-	},
-	{
-		"id": 3,
-		"firstName": "student3_firstName",
-		"lastName": "student3_lastName",
-		"carTag": "300"
-	},
-	{
-		"id": 4,
-		"firstName": "student4_firstName",
-		"lastName": "student4_lastName",
-		"carTag": "400"
-	},
-	{
-		"id": 5,
-		"firstName": "student5_firstName",
-		"lastName": "student5_lastName",
-		"carTag": "500"
-	}
-	]
+    "carTags": [
+      {
+        "tagID": "100",
+        "children": [
+          {
+            "fName": "firstChildsFirstName",
+            "lName": "firstChildsLastName",
+            "grade": "firstGrade"
+          },
+          {
+            "fName": "secondChildsFirstName",
+            "lName": "secondChildsLastName",
+            "grade": "secondGrade"
+          }
+        ]
+      },
+      {
+        "tagID": "200",
+        "children": [
+          {
+            "fName": "firstChildsFirstName",
+            "lName": "firstChildsLastName",
+            "grade": "thirdGrade"
+          },
+          {
+            "fName": "secondChildsFirstName",
+            "lName": "secondChildsLastName",
+            "grade": "fourthGrade"
+          }
+        ]
+      },
+      {
+        "tagID": "300",
+        "children": [
+          {
+            "fName": "firstChildsFirstName",
+            "lName": "firstChildsLastName",
+            "grade": "fifthGrade"
+          }
+        ]
+      }
+    ]
 }

@@ -1,31 +1,36 @@
 {
     "carTags": [
       {
-        "tagID": "100",
+        "id": 1,
+        "tagID": 100,
         "fName": "100firstChildsFirstName",
         "lName": "100firstChildsLastName",
         "grade": "100firstGrade"
       },
       {
-        "tagID": "100",
+        "id": 2,
+        "tagID": 100,
         "fName": "100secondChildsFirstName",
         "lName": "100secondChildsLastName",
         "grade": "100secondGrade"
       }, 
       {
-        "tagID": "200",
+        "id": 2,
+        "tagID": 200,
         "fName": "200firstChildsFirstName",
         "lName": "200firstChildsLastName",
         "grade": "200thirdGrade"
       },
       {
-        "tagID": "200",
+        "id": 3,
+        "tagID": 200,
         "fName": "200secondChildsFirstName",
         "lName": "200secondChildsLastName",
         "grade": "200fourthGrade"
       },
       {
-        "tagID": "300",
+        "id": 4,
+        "tagID": 300,
         "fName": "300firstChildsFirstName",
         "lName": "300firstChildsLastName",
         "grade": "300fifthGrade"

@@ -3,40 +3,40 @@
       {
         "id": 1,
         "tagID": 100,
-        "fName": "100firstChildsFirstName",
-        "lName": "100firstChildsLastName",
+        "fName": "100childOnefirstName",
+        "lName": "100childTwolastName",
         "grade": "100firstGrade",
         "dismissed": false  
       },
       {
         "id": 2,
         "tagID": 100,
-        "fName": "100secondChildsFirstName",
-        "lName": "100secondChildsLastName",
+        "fName": "100schildOnefirstName",
+        "lName": "100schildTwolastName",
         "grade": "100secondGrade",
         "dismissed": false  
       }, 
       {
         "id": 3,
         "tagID": 200,
-        "fName": "200firstChildsFirstName",
-        "lName": "200firstChildsLastName",
+        "fName": "200childOnefirstName",
+        "lName": "200childTwolastName",
         "grade": "200thirdGrade",
         "dismissed": false  
       },
       {
         "id": 4,
         "tagID": 200,
-        "fName": "200secondChildsFirstName",
-        "lName": "200secondChildsLastName",
+        "fName": "200schildOnefirstName",
+        "lName": "200schildTwolastName",
         "grade": "200fourthGrade",
         "dismissed": false  
       },
       {
         "id": 5,
         "tagID": 300,
-        "fName": "300firstChildsFirstName",
-        "lName": "300firstChildsLastName",
+        "fName": "300childOnefirstName",
+        "lName": "300childTwolastName",
         "grade": "300fifthGrade",
         "dismissed": false  
       }

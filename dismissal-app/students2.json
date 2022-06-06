@@ -6,7 +6,7 @@
         "fName": "100childOnefirstName",
         "lName": "100childOnelastName",
         "grade": "100firstGrade",
-        "dismissed": false  
+        "dismissed": true  
       },
       {
         "id": 2,
@@ -22,7 +22,7 @@
         "fName": "200childOnefirstName",
         "lName": "200childOnelastName",
         "grade": "200thirdGrade",
-        "dismissed": false  
+        "dismissed": true  
       },
       {
         "id": 4,

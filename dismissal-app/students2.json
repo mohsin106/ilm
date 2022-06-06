@@ -4,14 +4,14 @@
         "id": 1,
         "tagID": 100,
         "fName": "100childOnefirstName",
-        "lName": "100childTwolastName",
+        "lName": "100childOnelastName",
         "grade": "100firstGrade",
         "dismissed": false  
       },
       {
         "id": 2,
         "tagID": 100,
-        "fName": "100schildOnefirstName",
+        "fName": "100schildTwofirstName",
         "lName": "100schildTwolastName",
         "grade": "100secondGrade",
         "dismissed": false  

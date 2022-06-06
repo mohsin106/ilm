@@ -20,14 +20,14 @@
         "id": 3,
         "tagID": 200,
         "fName": "200childOnefirstName",
-        "lName": "200childTwolastName",
+        "lName": "200childOnelastName",
         "grade": "200thirdGrade",
         "dismissed": false  
       },
       {
         "id": 4,
         "tagID": 200,
-        "fName": "200schildOnefirstName",
+        "fName": "200schildTwofirstName",
         "lName": "200schildTwolastName",
         "grade": "200fourthGrade",
         "dismissed": false  
@@ -36,7 +36,7 @@
         "id": 5,
         "tagID": 300,
         "fName": "300childOnefirstName",
-        "lName": "300childTwolastName",
+        "lName": "300childOnelastName",
         "grade": "300fifthGrade",
         "dismissed": false  
       }

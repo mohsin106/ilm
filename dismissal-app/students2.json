@@ -3,41 +3,41 @@
       {
         "id": 1,
         "tagID": 100,
-        "fName": "100childOnefirstName",
-        "lName": "100childOnelastName",
-        "grade": "100firstGrade",
+        "fName": "childOnefirstName",
+        "lName": "childOnelastName",
+        "grade": "firstGrade",
         "dismissed": false  
       },
       {
         "id": 2,
         "tagID": 100,
-        "fName": "100schildTwofirstName",
-        "lName": "100schildTwolastName",
-        "grade": "100secondGrade",
+        "fName": "schildTwofirstName",
+        "lName": "schildTwolastName",
+        "grade": "secondGrade",
         "dismissed": false  
       }, 
       {
         "id": 3,
         "tagID": 200,
-        "fName": "200childOnefirstName",
-        "lName": "200childOnelastName",
-        "grade": "200thirdGrade",
+        "fName": "childOnefirstName",
+        "lName": "childOnelastName",
+        "grade": "thirdGrade",
         "dismissed": false  
       },
       {
         "id": 4,
         "tagID": 200,
-        "fName": "200schildTwofirstName",
-        "lName": "200schildTwolastName",
-        "grade": "200fourthGrade",
+        "fName": "schildTwofirstName",
+        "lName": "schildTwolastName",
+        "grade": "fourthGrade",
         "dismissed": false  
       },
       {
         "id": 5,
         "tagID": 300,
-        "fName": "300childOnefirstName",
-        "lName": "300childOnelastName",
-        "grade": "300fifthGrade",
+        "fName": "childOnefirstName",
+        "lName": "childOnelastName",
+        "grade": "fifthGrade",
         "dismissed": false  
       }
     ]

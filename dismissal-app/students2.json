@@ -11,8 +11,8 @@
       {
         "id": 2,
         "tagID": 100,
-        "fName": "schildTwofirstName",
-        "lName": "schildTwolastName",
+        "fName": "childTwofirstName",
+        "lName": "childTwolastName",
         "grade": "secondGrade",
         "dismissed": false  
       }, 
@@ -27,8 +27,8 @@
       {
         "id": 4,
         "tagID": 200,
-        "fName": "schildTwofirstName",
-        "lName": "schildTwolastName",
+        "fName": "childTwofirstName",
+        "lName": "childTwolastName",
         "grade": "fourthGrade",
         "dismissed": false  
       },

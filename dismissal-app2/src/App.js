@@ -33,9 +33,8 @@ function App() {
                         studentInfo.fName, 
                         studentInfo.lName,
                         studentInfo.grade,
-                        <Button />]
+                        "<button onclick={alert('button_clicked')}>Click Me</button>"]
                     )
-                    return `<button onClick={() => handleClick(${studentInfo.tagID})></button>`
                     
                 })
                 // console.log((JSON.stringify(_tagIDs)))

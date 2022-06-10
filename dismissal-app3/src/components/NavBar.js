@@ -26,7 +26,6 @@ export default function NavBar() {
             <NavDropdown.Item
               as={Link}
               to="/FirstGrade"
-              
             >
               First Grade
             </NavDropdown.Item>

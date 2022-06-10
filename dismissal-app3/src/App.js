@@ -155,7 +155,7 @@ function App() {
             }
           />
           <Route
-            path="/FirstGrade/*"
+            path="/FirstGrade"
             element={
               <FirstGrade
                 rowData={rowData}

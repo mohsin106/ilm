@@ -22,13 +22,13 @@ export default function NavBar() {
             Home
           </Nav.Link>
           {/* <Nav.Link href="#link">Link</Nav.Link> */}
-          <NavDropdown title="Select Grade/Class" id="basic-nav-dropdown">
+          {/* <NavDropdown title="Select Grade/Class" id="basic-nav-dropdown">
             <NavDropdown.Item
               as={Link}
               to="/FirstGrade"
             >
               First Grade
-            </NavDropdown.Item>
+            </NavDropdown.Item> */}
             {/* <NavDropdown.Item href="#action/3.2"> */}
             {/* Another action */}
             {/* </NavDropdown.Item> */}
@@ -37,7 +37,7 @@ export default function NavBar() {
             {/* <NavDropdown.Item href="#action/3.4">
                 Separated link
               </NavDropdown.Item> */}
-          </NavDropdown>
+          {/* </NavDropdown> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

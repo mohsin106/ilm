@@ -9,68 +9,57 @@ import carTagData from "./components/carTagData"
 import Home from "./pages/Home"
 import FirstGrade from "./pages/FirstGrade"
 import Error from "./pages/Error"
+import { v1 as uuidv1 } from "uuid"
+import axios from "axios"
 
 function App() {
   // const [carTags, setCarTags] = useState(carTagData)
   // console.log(JSON.stringify(carTags))
   const [API_URL] = useState("https://raw.githubusercontent.com/mohsin106/ilm/main/dismissal-app/students2.json");
   const [rowData, setRowData] = useState("");
-  const [studentTableData, setStudentTableData] = useState(JSON.parse(localStorage.getItem("studentData")) || []);
-  const [dismissedStudents, setDismissedStudents] = useState("");
-
-  // Get data with API call
-  useEffect(() => {
-    async function getCarTags() {
-      const response = await fetch(API_URL);
-      const data = await response.json();
-      // console.log(JSON.stringify(data));
-      const _studentData = data.carTags.map((tagInfo) => {
-        return tagInfo;
-      });
-      // Save data to local storage
-      localStorage.setItem("studentData", JSON.stringify(_studentData));
-    }
-    getCarTags();
-  }, [API_URL]);
-
+  const [studentTableData, setStudentTableData] = useState([]);
+  const [dismissedStudents, setDismissedStudents] = useState([]);
   
+  
+    // Get data with API call
+    useEffect(() => {
+      async function getCarTags() {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        // console.log(JSON.stringify(data));
+        const _studentData = data.carTags.map((tagInfo) => {
+          return tagInfo;
+        });
+        // Save data to local storage
+        // localStorage.setItem("studentData", JSON.stringify(_studentData));
+        // setStudentTableData(JSON.parse(localStorage.getItem("studentData")))
+        setStudentTableData(_studentData)
+      }
+      getCarTags();
+    }, [API_URL]);
+    
+    // console.log(JSON.stringify(studentTableData));
+
   // Handle onClick
   function onFollowChanged(data) {
-    // let dismissed = data.dismissed;
-    // console.log(JSON.stringify(dismissed));
-    setRowData(data);
-    // console.log(JSON.stringify(data))
-
     // Flip value for dismissed property in studentTableData (locally stored)
     setStudentTableData((prevData) => {
-      return prevData.map((carTag) => {
-        // console.log(carTag.fName, carTag.dismissed);
-        return carTag.id === data.id
-        ? { ...carTag, dismissed: !carTag.dismissed }
-        : carTag;
+      return prevData.map((studentInfo) => {
+        // console.log(studentInfo.fName, studentInfo.dismissed);
+        return studentInfo.id === data.id
+        ? { ...studentInfo, dismissed: !studentInfo.dismissed }
+        : studentInfo;
       });
     });
   }
 
-  // Set dismissedStudents
-  // useEffect(() => {
-  //   setDismissedStudents(
-  //     studentTableData.map((studentInfo) => {
-  //       // return studentInfo.dismissed && { ...studentInfo };
-  //       if (studentInfo.dismissed) {
-  //         return studentInfo
-  //       }
-  //     })
-  //   );
-  // }, [studentTableData]);
-
-  // Set dismissedStudents using filter
+  // // Set dismissedStudents using filter
   useEffect(() => {
+    // console.log(JSON.stringify(studentTableData));
     setDismissedStudents(
       studentTableData.filter((studentInfo) => studentInfo.dismissed  ));
   }, [studentTableData]);
-  console.log(JSON.stringify(dismissedStudents));
-  // console.log(JSON.stringify(studentTableData));
+  // console.log(JSON.stringify(dismissedStudents));
 
   // Create custom button in table
   function linkFollow(cell, row, rowIndex, formatExtraData) {
@@ -106,6 +95,11 @@ function App() {
       dataField: "button",
       text: "Call",
       formatter: linkFollow
+    },
+    {
+      dataField: "deleteBtn",
+      text: "Delete",
+      formatter: deleteFollow
     }
   ];
 
@@ -131,7 +125,34 @@ function App() {
     }
   ];
   
-  
+  // Create custom button in table
+  function deleteFollow(cell, row, rowIndex, formatExtraData) {
+    // console.log(JSON.stringify(row.dismissed));
+    return (
+      <Button onClick={() => deleteStudent(row)}>
+        Delete Student
+      </Button>
+    );
+  }
+
+  const addStudent = () => {
+
+  }
+
+  const deleteStudent = (data) => {
+    setStudentTableData(prevData => prevData.filter((studentInfo) => studentInfo.id != data.id))
+    // console.log(JSON.stringify(filteredStudentData))
+    // console.log(JSON.stringify(studentTableData))
+  }
+
+  const updateStudent = () => {
+
+  }
+
+  const saveJson = (students) => {
+
+  }
+
   return (
       <>
       <NavBar />

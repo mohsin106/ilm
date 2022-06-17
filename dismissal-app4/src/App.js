@@ -51,6 +51,9 @@ function App() {
         : studentInfo;
       });
     });
+
+    // need to call save function here
+    saveStudentDataFile(studentTableData)
   }
 
   // // Set dismissedStudents using filter
@@ -149,8 +152,13 @@ function App() {
 
   }
 
-  const saveJson = (students) => {
-
+  // update or write to json file using axios
+  const saveStudentDataFile = (studentsInfo) => {
+    const url = 'http://localhost:5001/write'
+    axios.post(url, studentsInfo)
+    .then(response => {
+      console.log(response)
+    })
   }
 
   return (

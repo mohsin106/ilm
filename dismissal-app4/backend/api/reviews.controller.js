@@ -36,7 +36,7 @@ export default class ReviewsController {
 
   // edit a review
   static async apiUpdateReview(req, res, next) {
-    // get information from the body
+    // get information from the body of PUT API call from Insomnia
     try {
       const reviewId = req.body.review_id
       const text = req.body.text
@@ -55,6 +55,7 @@ export default class ReviewsController {
       }
 
       if (reviewResponse.modifiedCount === 0) {
+        // console.log(reviewResponse.modifiedCount)
         throw new Error(
           "unable to update review - user may not be original poster",
         )
@@ -68,7 +69,7 @@ export default class ReviewsController {
 
   static async apiDeleteReview(req, res, next) {
     try {
-      const reviewId = req.query.id // get the id from the query parameter
+      const reviewId = req.query.id // get the id from the "id" var in the URL (http://localhost:5002/api/v1/restaurants/review?id=62b9c133b7b9e6deed880954)
       const userId = req.body.user_id  // get the user_id from the body. In a prod environment, you would not include anything from the body in the delete request.
       console.log(reviewId)
       const reviewResponse = await ReviewsDAO.deleteReview(

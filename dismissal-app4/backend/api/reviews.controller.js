@@ -4,9 +4,9 @@ export default class ReviewsController {
   // post new review
   /**
    * in the video https://youtu.be/mrHNSanmqQ4?t=3217 , the instructor used Insomnia to make a POST call to the /review route.
-   * now since we have a ".post" method in the "restaurants.route.js" file, this will the "apiPostReview" method in this file.  
+   * now since we have a ".post" method in the "restaurants.route.js" file, this will be the "apiPostReview" method in this file.  
    * the "apiPostReview" method in this file will grab the restaurantID, review, and userInfo from the body of the request as seen below.
-   * it will then make an async call to "addReview" which is inside of the reviewsDAO.js file. It will pass all the necessary data to the "addReview" method to get a record created in the DB.
+   * it will then make an async call to "addReview" which is inside of the reviewsDAO.js file. It will pass all the necessary data to the "addReview" method create a record in the DB.
    * */ 
 
   static async apiPostReview(req, res, next) {
@@ -35,6 +35,7 @@ export default class ReviewsController {
   }
 
   // edit a review
+  // reviewId is actually the document ID (_id) from the specific document in the "reviews" collection.
   static async apiUpdateReview(req, res, next) {
     // get information from the body of PUT API call from Insomnia
     try {
@@ -67,9 +68,18 @@ export default class ReviewsController {
     }
   }
 
+  /**
+   * the apiDeleteReview is a little different.
+   * you need to pass the "_id" of the document that you want to delete in the URL (ex: http://localhost:5002/api/v1/restaurants/review/?id=62e2c485df4536b534c05376)
+   * this method is then assigning the "_id" from the URL to the "reviewId" variable.
+   * this method is also assigning the "user_id" from the body of the message to the "useId" variable.
+   * both "reviewId" and "userId" are then passed to the "deleteReview" method inside the reviewDAO.js file.
+   * this method really only needs the "_id" to be correct in order for it to delete the correct record from the db.
+   * passing in other variables is okay
+   */
   static async apiDeleteReview(req, res, next) {
     try {
-      const reviewId = req.query.id // get the id from the "id" var in the URL (http://localhost:5002/api/v1/restaurants/review?id=62b9c133b7b9e6deed880954)
+      const reviewId = req.query.id // get the id from the query after the "?"... in this case grab "id" after the question mark in this URL (http://localhost:5002/api/v1/restaurants/review?id=62b9c133b7b9e6deed880954)
       const userId = req.body.user_id  // get the user_id from the body. In a prod environment, you would not include anything from the body in the delete request.
       console.log(reviewId)
       const reviewResponse = await ReviewsDAO.deleteReview(
@@ -82,4 +92,28 @@ export default class ReviewsController {
     }
   }
 
+  static async apiGetRestaurantById(req, res, next) {
+    try {
+      let id = req.params.id || {} // "params" means to grab the parameter from the URL. In this case the "id" parameter is being grabbed.
+      let restaurant = await RestaurantsDAO.getRestaurantByID(id)
+      if (!restaurant) {
+        res.status(404).json({ error: "Not found" })
+        return
+      }
+      res.json(restaurant)
+    } catch (e) {
+      console.log(`api, ${e}`)
+      res.status(500).json({ error: e })
+    }
+  }
+
+  static async apiGetRestaurantCuisines(req, res, next) {
+    try {
+      let cuisines = await RestaurantsDAO.getCuisines()
+      res.json(cuisines)
+    } catch (e) {
+      console.log(`api, ${e}`)
+      res.status(500).json({ error: e })
+    }
+  }
 }

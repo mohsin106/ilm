@@ -1,3 +1,5 @@
+import mongodb from "mongodb"
+const ObjectId = mongodb.ObjectId
 let restaurants         // used to store reference to the database
 
 export default class RestaurantsDAO {
@@ -7,7 +9,11 @@ export default class RestaurantsDAO {
     if (restaurants) {
       return    // if reference already exists, return it
     }
-    try {       // if reference does not exist, fill it with the correct DB reference
+    try {       
+      /**
+       * if reference doesn't not exist, fill it with the correct DB reference.
+       * remember..."restaurants" will be referencing the "restaurant" collection in MongoDB
+       */
       restaurants = await conn.db(process.env.RESTREVIEWS_NS).collection("restaurants")
     } catch (e) {   // error handling
       console.error(
@@ -60,4 +66,75 @@ export default class RestaurantsDAO {
     }
   }
 
+  static async getRestaurantByID(id) {
+    try {
+      /**
+       * pipelines help match different collections together.
+       * "$lookup" is part of the MongoDB aggregation pipeline.
+       * we are going to lookup the reviews of a specific restaurant and add that data to the result in the pipeline
+       * the aggregation pipeline is a framework for data aggregation, modeled on the concept of data processing pipelines.
+       * documents enter a multi-stage pipeline that transforms the documents into aggregated results.
+       * MongoDB Data Explorer and Compass can assist in creating pipeline. Check the video notes for more details.
+       */
+      const pipeline = [
+        {
+            /**
+             * we are trying to get the review of a restaurant matching a specific "_id" and aggregate those results into a field called "reviews"
+             */
+            $match: {
+                _id: new ObjectId(id),
+            },
+        },
+              {
+                  $lookup: {
+                      from: "reviews",
+                      let: {
+                          id: "$_id",
+                      },
+                      pipeline: [
+                          {
+                              $match: {
+                                  $expr: {
+                                      $eq: ["$restaurant_id", "$$id"],
+                                  },
+                              },
+                          },
+                          {
+                              $sort: {
+                                  date: -1,
+                              },
+                          },
+                      ],
+                      as: "reviews",
+                  },
+              },
+              {
+                  // creating the "reviews" field here in MongoDB and assigning it the value of "$reviews" which was initally refrenced on line 104.
+                  $addFields: {
+                      reviews: "$reviews",
+                  },
+              },
+          ]
+      return await restaurants.aggregate(pipeline).next()
+    } catch (e) {
+      console.error(`Something went wrong in getRestaurantByID: ${e}`)
+      throw e
+    }
+  }
+
+  static async getCuisines() {
+    let cuisines = []
+    /**
+     * auto populate the "cuisine" dropdown.
+     * only get distinct cuisines from the DB.
+     * remeber "restaurants" is the MongoDB reference. it has a method distinct assocaited to it in order to run the distinct query.
+     */
+    try {
+      cuisines = await restaurants.distinct("cuisine")
+      return cuisines
+    } catch (e) {
+      console.error(`Unable to get cuisines, ${e}`)
+      return cuisines
+    }
+  }
 }

@@ -12,7 +12,7 @@ const router = express.Router()
 // we now use the controller to access the routes
 router.route("/").get(RestaurantsCtrl.apiGetRestaurants)
 router.route("/id/:id").get(RestaurantsCtrl.apiGetRestaurantById)
-router.route("/cuisines").get(RestaurantsCtrl.apiGetRestaurantCuisines)
+router.route("/cuisines").get(RestaurantsCtrl.apiGetRestaurantCuisines) // will be used to populate "cuisines dropdown menu"
 
 // add routes to post, edit, and delete reviews
 router

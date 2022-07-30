@@ -19,7 +19,7 @@ export default class ReviewsDAO {
   // receives data from reviews.controller.js
   /** 
    * the "addReview" method receives data from the "apiPostReview", which is in the "reviews.controller.js" file.
-   * this same method combines all the data it receives into one variable called "reviewDoc".
+   * this addReview method in this file combines all the data it receives into one variable called "reviewDoc".
    * this method then makes a call to the MongoDB "insertOne" command and passes the "reviewDoc" variable.
    * this method waits for a response back from MongoDB.
    */
@@ -39,6 +39,14 @@ export default class ReviewsDAO {
     }
   }
 
+  /**
+   * this is doing going to update the "text" field in a specific document which is inside of the "reviews" collections.
+   * the "apiUpdateReview" method from the "reviews.controller.js" file is passing the ID of the specific document that we
+   * want to udpate as the "reviewID". You can see below that "reviewID" gets assigned to "_id" and is used to target the specific 
+   * document inside of the "reviews" collection.
+   * the "updateReview" method in this file uses the "updateOne" MongoDB method to update the record in the DB.
+   * you can see "$set" being assigned a dictionary with fields that need to be updated along with their correspoinding values.
+   */
   static async updateReview(reviewId, userId, text, date) {
     try {
         // updateOne is a mongoDB command
@@ -54,6 +62,9 @@ export default class ReviewsDAO {
     }
   }
 
+  /**
+   * 
+   */
   static async deleteReview(reviewId, userId) {
 
     try {

@@ -1,3 +1,4 @@
+// this file is used by the restaurants.route.js file to access the restaurantsDAO.js file.
 import RestaurantsDAO from "../dao/restaurantsDAO.js"
 
 export default class RestaurantsController {

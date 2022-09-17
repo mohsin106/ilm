@@ -1,3 +1,4 @@
+// this is the Data Access Object file. It allows our code to access our MongoDB.
 import mongodb from "mongodb"
 const ObjectId = mongodb.ObjectId
 let restaurants         // used to store reference to the database
@@ -5,6 +6,7 @@ let restaurants         // used to store reference to the database
 export default class RestaurantsDAO {
   
   // this method allows us to initially connect to our database
+  // as soon as the server starts, the "injectDB" method is called which gets a reference to the restaurants database.
   static async injectDB(conn) {
     if (restaurants) {
       return    // if reference already exists, return it
@@ -12,7 +14,8 @@ export default class RestaurantsDAO {
     try {       
       /**
        * if reference doesn't not exist, fill it with the correct DB reference.
-       * remember..."restaurants" will be referencing the "restaurant" collection in MongoDB
+       * remember..."restaurants" will be referencing the "restaurants" collection inside the "sample_restaurants" MongoDB
+       * also notice "process.env.RESTREVIEWS_NS" is being used to reference the "RESTREVIEWS_NS" variable in the .env file
        */
       restaurants = await conn.db(process.env.RESTREVIEWS_NS).collection("restaurants")
     } catch (e) {   // error handling
@@ -22,40 +25,47 @@ export default class RestaurantsDAO {
     }
   }
 
+  // after the connection to the DB is made this method is run, which gets a listing of all the restaurants
   static async getRestaurants({
+    // these are all the options you can set to help query your data.
     filters = null,     // filters can be added for sorting, etc...
     page = 0,   // defaults to show page 0
     restaurantsPerPage = 20,    // default to show 20 restaurants per page
   } = {}) {
     let query
-    if (filters) {
-      // search by name of restaurant
+    if (filters) {  // if there are filters defined above then:
+      // if "name" is in filters then search by name
       if ("name" in filters) {
-        query = { $text: { $search: filters["name"] } } // with text search you need to set up a name field in MongoDB
-        // or search by cuisine of the restaurant
+        query = { $text: { $search: filters["name"] } } // with text search you need to configure which fields will be used for "$text" based searches in MongoDB. 
+                                                        // in this example the "name" field is being used for a "$text" based search. also please note that "$text" is a MongoDB client operator. 
+                                                        // "$text" is not a variable defined in this file or any other file.
+        // else if "cuisine" is in filters, search by cuisine
       } else if ("cuisine" in filters) {
         query = { "cuisine": { $eq: filters["cuisine"] } }
-        // or search by zipcode
+        // else if "zippcode" in in filters, search by zipcode
       } else if ("zipcode" in filters) {
         query = { "address.zipcode": { $eq: filters["zipcode"] } }
       }
     }
 
-    let cursor
+    let cursor  // a cursor is a pointer, and using this pointer we can access the document (https://www.geeksforgeeks.org/mongodb-cursor/)
     
     try {
       cursor = await restaurants
-        .find(query)
+        .find(query)  //This find() method return a cursor with contain all documents present in the restaurants collection.
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`)
       return { restaurantsList: [], totalNumRestaurants: 0 }
     }
 
+    // the limit() method on a cursor is used to specify the maximum number of documents the cursor will return (https://www.mongodb.com/docs/rapid/reference/method/cursor.limit/)
+    // the skip() method on a cursor is used to control where MongoDB begins returning results (https://www.mongodb.com/docs/manual/reference/method/cursor.skip/)
+    // we're specifying "displayCursor" as a constanct to set how many documents to view per page and what page we should start at
     const displayCursor = cursor.limit(restaurantsPerPage).skip(restaurantsPerPage * page)
 
     try {
-      const restaurantsList = await displayCursor.toArray()
-      const totalNumRestaurants = await restaurants.countDocuments(query)
+      const restaurantsList = await displayCursor.toArray() // stores the documents from the query inside an array
+      const totalNumRestaurants = await restaurants.countDocuments(query) // gets the count of documents returned by the query
 
       return { restaurantsList, totalNumRestaurants }
     } catch (e) {

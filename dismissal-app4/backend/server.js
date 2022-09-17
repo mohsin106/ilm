@@ -1,3 +1,4 @@
+// this file contains parameters on how to route incoming traffic to the backend MongoDB
 import express from "express"
 import cors from "cors"
 import restaurants from "./api/restaurants.route.js"

@@ -1,8 +1,38 @@
 # MERN Stack video notes 
 (https://youtu.be/mrHNSanmqQ4)
 
-# DAO = data access object. 
-Allows you to access tables in your database.
+# Backend Architecture
+## server.js
+- runs express router, and contains parameters on how to route incoming traffic to the backend MongoDB.
+- every routes default beginning is `/api/v1/restaurants`
+- this file references `restaurants.route.js`
+
+## restaurants.route.js
+- recieves routes sent by the `server.js` file and routes the API calls to the appropriate methods inside of the `restaurants.controller.js`
+- the "/" route in this file references the "/api/v1/restaurants" route in `server.js`
+- a "/id" route in this file means the API call was made to "/api/v1/restaurants/id"
+
+## restaurants.controller.js
+- contains a `RestaurantController` class that has a few methods associated to it.
+- recieves data from `restaurants.route.js` and executes the appropriate method.
+- so when this (`router.route("/").get(RestaurantsCtrl.apiGetRestaurants)`) is called in `restaurants.route.js` the `apiGetRestaurants` method is executed in this file and the data is returned.
+- this file also imports the `restaurantsDAO.js` Data Access Object file so that it can send DB queries to MongDB and get the results.
+- when `apiGetRestaurants` is called in this file it calls `getRestaurants` from the `restaurantsDAO.js` file.
+- the `restaurantsDAO.js` file then makes the query inside of MongoDB and returns the results back to this file.
+
+## restaurantsDAO.js
+- this is the data access object file and it allows you to access tables in your Mongo backend database.
+- once the `index.js` file make a connection to the DB, it calls the `injectDB` method in this file and passes it the reference to the MongoDB connection.
+- this file then uses the `.env` file by calling `process.env.RESTREVIEWS_NS` to get the `RESTREVIEWS_NS` parameter and makes a connection to the DB.
+- this file is also used by `restaurants.controller.js` for making queries to the MongoDB
+
+## index.js
+- imports `app, mongodb, dotenv, restaurantsDAO.js, reviewsDAO.js`
+- this file starts the backend server `server.js`
+- makes a reference to MongoDB `MongoClient` and uses this reference to make connection to the MongoDB.
+- this file also uses the `.env` file to get parameters for the database.
+- this file also calls `injectDB` from `restaurantsDAO.js` to establish a MongoDB connection.
+- `injectDB` allows `restaurantsDAO.js` to establish a connection to the MongoDB and `restaurantsDAO.js` holds this connection for subsequent database access requests.
 
 # How to start backend and frontend
 

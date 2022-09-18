@@ -2,12 +2,16 @@
 import RestaurantsDAO from "../dao/restaurantsDAO.js"
 
 export default class RestaurantsController {
+  // the below method will reference the "query" parameter of the API request to pull out information.
   static async apiGetRestaurants(req, res, next) {
+    // if a restaurantsPerPage key:value is passed in with the URL we are going to convert it to an int and assign it to the "restaurantsPerPage" var here, otherwise set default to 20
     const restaurantsPerPage = req.query.restaurantsPerPage ? parseInt(req.query.restaurantsPerPage, 10) : 20
+    // if a page key:value is passed in with the URL we are going to convert it to an int and assign it to the "page" var here, otherwise set the default to 0
     const page = req.query.page ? parseInt(req.query.page, 10) : 0
 
+
     let filters = {}
-    // below are all your query strings
+    // extract all of the filters out from the URL ("cuisine", "zipcode", "name")
     if (req.query.cuisine) {
       filters.cuisine = req.query.cuisine
     } else if (req.query.zipcode) {
@@ -16,6 +20,11 @@ export default class RestaurantsController {
       filters.name = req.query.name
     }
 
+    // console.log(req.query)
+    // console.log(filters.cuisine)
+    // console.log(filters.zipcode)
+
+    // get the "restaurantsList" and "totalNumRestaurants" data back from "RestaurantsDAO.getRestaurants"
     const { restaurantsList, totalNumRestaurants } = await RestaurantsDAO.getRestaurants({
       filters,
       page,
@@ -29,8 +38,10 @@ export default class RestaurantsController {
       entries_per_page: restaurantsPerPage,
       total_results: totalNumRestaurants,
     }
-    res.json(response)
+    res.json(response)  // a JSON response gets sent to browser to display to all the data that the restaurantsDAO.js file returned to this file.
   }
+
+  // a parameter is anything after the / of the base url, and a query string is anything starting with a ?
   static async apiGetRestaurantById(req, res, next) {
     try {
       let id = req.params.id || {}

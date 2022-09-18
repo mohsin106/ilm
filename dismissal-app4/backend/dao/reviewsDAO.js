@@ -1,5 +1,7 @@
+// this is the Data Access Object file. It allows our code to access our MongoDB.
+
 import mongodb from "mongodb"
-const ObjectId = mongodb.ObjectId
+const ObjectId = mongodb.ObjectId // convert string into MongDB ObjectId
 
 let reviews
 
@@ -50,6 +52,7 @@ export default class ReviewsDAO {
   static async updateReview(reviewId, userId, text, date) {
     try {
         // updateOne is a mongoDB command
+        // user_id in MongoDB has to match what is being passed into this method.
       const updateResponse = await reviews.updateOne(
         { user_id: userId, _id: ObjectId(reviewId)},
         { $set: { text: text, date: date  } },
@@ -73,7 +76,7 @@ export default class ReviewsDAO {
         _id: ObjectId(reviewId),
         user_id: userId,
       })
-
+      console.log(deleteResponse)
       return deleteResponse
     } catch (e) {
       console.error(`Unable to delete review: ${e}`)

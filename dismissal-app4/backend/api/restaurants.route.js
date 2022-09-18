@@ -1,7 +1,7 @@
 // this file is recieves routes sent by the "server.js" file and routes the API calls to the appropriate methods inside of the "restaurants.controller.js"
 import express from "express"
 import RestaurantsCtrl from "./restaurants.controller.js"
-// import ReviewsCtrl from "./reviews.controller.js"
+import ReviewsCtrl from "./reviews.controller.js"
 
 // get access to express router
 const router = express.Router()
@@ -14,13 +14,13 @@ const router = express.Router()
 // we now use the controller to access the routes
 // when the user goes to the default URL, then the "apiGetRestaurants" method is called from the restaurants.controller.js file
 router.route("/").get(RestaurantsCtrl.apiGetRestaurants)
-// router.route("/id/:id").get(RestaurantsCtrl.apiGetRestaurantById)
-// router.route("/cuisines").get(RestaurantsCtrl.apiGetRestaurantCuisines) // will be used to populate "cuisines dropdown menu"
+router.route("/id/:id").get(RestaurantsCtrl.apiGetRestaurantById)
+router.route("/cuisines").get(RestaurantsCtrl.apiGetRestaurantCuisines) // will be used to populate "cuisines dropdown menu"
 
 // add routes to post, edit, and delete reviews
-// router
-    // .route("/review")
-    // .post(ReviewsCtrl.apiPostReview)
-    // .put(ReviewsCtrl.apiUpdateReview)
-    // .delete(ReviewsCtrl.apiDeleteReview)
+router
+    .route("/review")
+    .post(ReviewsCtrl.apiPostReview)
+    .put(ReviewsCtrl.apiUpdateReview)
+    .delete(ReviewsCtrl.apiDeleteReview)
 export default router

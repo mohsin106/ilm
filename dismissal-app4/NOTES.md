@@ -1,6 +1,9 @@
 # MERN Stack video notes 
 (https://youtu.be/mrHNSanmqQ4)
 
+# How to implement security with MongoDB
+https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa0tsUmFJYl9JTE4xY181RC1GZmpiZHpFaDN3Z3xBQ3Jtc0tuc2U4R2JGU3Q4N3RFUWVCVzV2SXlvZ1VNU2psZWRBM0dhTmh2bEswb0NMbUhqcWNQd2FCUW85alNuMGtuSzNhRU5PU0VOYVN5YVNMVW8xQmk4UFhXTGVKRDZKb2VfTl9ZNVRtUWpiZWJlakJkN3FpMA&q=https%3A%2F%2Fwww.mongodb.com%2Fsecurity-best-practices&v=mrHNSanmqQ4
+
 # Backend Architecture
 ## server.js
 - runs express router, and contains parameters on how to route incoming traffic to the backend MongoDB.
@@ -11,28 +14,45 @@
 - recieves routes sent by the `server.js` file and routes the API calls to the appropriate methods inside of the `restaurants.controller.js`
 - the "/" route in this file references the "/api/v1/restaurants" route in `server.js`
 - a "/id" route in this file means the API call was made to "/api/v1/restaurants/id"
+- "/reviews" in this file references the "/api/v1/restaurants/reviews" URL
 
 ## restaurants.controller.js
+- imports the `restaurantsDAO.js` file
 - contains a `RestaurantController` class that has a few methods associated to it.
 - recieves data from `restaurants.route.js` and executes the appropriate method.
-- so when this (`router.route("/").get(RestaurantsCtrl.apiGetRestaurants)`) is called in `restaurants.route.js` the `apiGetRestaurants` method is executed in this file and the data is returned.
-- this file also imports the `restaurantsDAO.js` Data Access Object file so that it can send DB queries to MongDB and get the results.
+- when this (`router.route("/").get(RestaurantsCtrl.apiGetRestaurants)`) is called in `restaurants.route.js` the `apiGetRestaurants` method is executed in this file and the data is returned.
+- this file imports the `restaurantsDAO.js` Data Access Object file so that it can send DB queries to MongDB and get the results.
 - when `apiGetRestaurants` is called in this file it calls `getRestaurants` from the `restaurantsDAO.js` file.
 - the `restaurantsDAO.js` file then makes the query inside of MongoDB and returns the results back to this file.
+- to pass multiple variables in the URL you can do so like this `http://localhost:5002/api/v1/restaurants?page=2&restaurantsPerPage=3`, this will set the `restaurantsPerPage` const to 3 and the `page` const to 2
+
+## reviews.controller.js
+- imports the `reviewsDAO.js` file
+- contains a `ReviewsController` class that has a few methods associated to it.
+- receives data from `restaurant.route.js` and executes the appropriate method.
+- updateReview checks to see if a valid user_id is passed in.
+- if it doesn't recognize the user_id then an error in PostMan is thrown ("unable to update review - user may not be original poster")
 
 ## restaurantsDAO.js
-- this is the data access object file and it allows you to access tables in your Mongo backend database.
+- this is the data access object file and it allows you to query tables in your Mongo backend database.
 - once the `index.js` file make a connection to the DB, it calls the `injectDB` method in this file and passes it the reference to the MongoDB connection.
 - this file then uses the `.env` file by calling `process.env.RESTREVIEWS_NS` to get the `RESTREVIEWS_NS` parameter and makes a connection to the DB.
 - this file is also used by `restaurants.controller.js` for making queries to the MongoDB
 
 ## index.js
 - imports `app, mongodb, dotenv, restaurantsDAO.js, reviewsDAO.js`
-- this file starts the backend server `server.js`
+- this file starts the communication to the MongDB backend via the `server.js`
 - makes a reference to MongoDB `MongoClient` and uses this reference to make connection to the MongoDB.
 - this file also uses the `.env` file to get parameters for the database.
 - this file also calls `injectDB` from `restaurantsDAO.js` to establish a MongoDB connection.
 - `injectDB` allows `restaurantsDAO.js` to establish a connection to the MongoDB and `restaurantsDAO.js` holds this connection for subsequent database access requests.
+
+# MongoDB text search
+In this tutorial when you want to search for a restaurant by its name, then you first need to create a "text" index inside of the "restaurants" collection.
+
+You log into the WebUI for MongoDB and go to the "restaurants" collection and then click on "CREATE INDEX". The you put "name" for the field and set that equal to "text".
+
+Now you will be able to search for restarants by the name field.
 
 # How to start backend and frontend
 

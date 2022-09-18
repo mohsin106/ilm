@@ -33,6 +33,7 @@ export default class RestaurantsDAO {
     restaurantsPerPage = 20,    // default to show 20 restaurants per page
   } = {}) {
     let query
+    // console.log(filters)
     if (filters) {  // if there are filters defined above then:
       // if "name" is in filters then search by name
       if ("name" in filters) {
@@ -47,12 +48,13 @@ export default class RestaurantsDAO {
         query = { "address.zipcode": { $eq: filters["zipcode"] } }
       }
     }
-
     let cursor  // a cursor is a pointer, and using this pointer we can access the document (https://www.geeksforgeeks.org/mongodb-cursor/)
+    // console.log(query)
     
     try {
       cursor = await restaurants
         .find(query)  //This find() method return a cursor with contain all documents present in the restaurants collection.
+        // console.log(cursor)
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`)
       return { restaurantsList: [], totalNumRestaurants: 0 }
@@ -62,11 +64,11 @@ export default class RestaurantsDAO {
     // the skip() method on a cursor is used to control where MongoDB begins returning results (https://www.mongodb.com/docs/manual/reference/method/cursor.skip/)
     // we're specifying "displayCursor" as a constanct to set how many documents to view per page and what page we should start at
     const displayCursor = cursor.limit(restaurantsPerPage).skip(restaurantsPerPage * page)
-
+    // console.log(displayCursor)
     try {
       const restaurantsList = await displayCursor.toArray() // stores the documents from the query inside an array
       const totalNumRestaurants = await restaurants.countDocuments(query) // gets the count of documents returned by the query
-
+      // console.log(restaurantsList)
       return { restaurantsList, totalNumRestaurants }
     } catch (e) {
       console.error(
@@ -136,7 +138,7 @@ export default class RestaurantsDAO {
     let cuisines = []
     /**
      * auto populate the "cuisine" dropdown.
-     * only get distinct cuisines from the DB.
+     * only get distinct cuisines one time from the DB.
      * remeber "restaurants" is the MongoDB reference. it has a method distinct assocaited to it in order to run the distinct query.
      */
     try {

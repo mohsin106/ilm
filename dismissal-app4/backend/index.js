@@ -2,7 +2,7 @@ import app from "./server.js"
 import mongodb from "mongodb"
 import dotenv from "dotenv"
 import RestaurantsDAO from "./dao/restaurantsDAO.js"
-// import ReviewsDAO from "./dao/reviewsDAO.js"
+import ReviewsDAO from "./dao/reviewsDAO.js"
 
 /** 
  * this index.js file is going to start the backend server and make a connection to the DB for you.
@@ -15,7 +15,6 @@ const MongoClient = mongodb.MongoClient // gets access to the Mongo client from 
 // access your PORT variable from the dotenv file which you imported earlier by doint dotenv.config()
 // if for some reason the PORT variable from the .env file can't be accessed, then use port 8000 instead
 const port = process.env.PORT || 8000
-
 // this is where you connect to the DB
 MongoClient.connect(
     process.env.RESTREVIEWS_DB_URI,
@@ -35,7 +34,7 @@ MongoClient.connect(
 .then(async client => {
     // how we get intial reference to the restaurants collection in the DB.
     await RestaurantsDAO.injectDB(client)
-    // await ReviewsDAO.injectDB(client)
+    await ReviewsDAO.injectDB(client)
     app.listen(port, () => {        // app.listen is how we start the webserver
         console.log(`listening on port ${port}`)
     })

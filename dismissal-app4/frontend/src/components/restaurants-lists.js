@@ -168,7 +168,7 @@ const RestaurantsList = props => {
     </div>
     <div className="row">
       {restaurants.map((restaurant) => {
-        console.log(restaurant._id)
+        // console.log(restaurant._id)
         const address = `${restaurant.address.building} ${restaurant.address.street}, ${restaurant.address.zipcode}`;
         return (
           <div className="col-lg-4 pb-1" key={restaurant._id}>

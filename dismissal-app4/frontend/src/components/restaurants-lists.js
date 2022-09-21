@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react"
 import RestaurantDataService from "../services/restaurant"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 const RestaurantsList = props => {
-    const [restaurants, setRestaurants] = useState([]);
-    const [searchName, setSearchName ] = useState("");
-    const [searchZip, setSearchZip ] = useState("");
-    const [searchCuisine, setSearchCuisine ] = useState("");
-    const [cuisines, setCuisines] = useState(["All Cuisines"]);
-
+  const [restaurants, setRestaurants] = useState([]);
+  const [searchName, setSearchName ] = useState("");
+  const [searchZip, setSearchZip ] = useState("");
+  const [searchCuisine, setSearchCuisine ] = useState("");
+  const [cuisines, setCuisines] = useState(["All Cuisines"]);
+  
   useEffect(() => {
     retrieveRestaurants();
     retrieveCuisines();
   }, []);
+  
+  // console.log(restaurants)
 
   const onChangeSearchName = e => {
     const searchName = e.target.value;
@@ -42,6 +44,7 @@ const RestaurantsList = props => {
       });
   };
 
+
   const retrieveCuisines = () => {
     RestaurantDataService.getCuisines()
       .then(response => {
@@ -64,6 +67,8 @@ const RestaurantsList = props => {
   const refreshList = () => {
     retrieveRestaurants();
   };
+
+  // console.log(RestaurantsList.restaurants)
 
   /**
    * this "find" function will be called by the below three functions (findByName, findByZip, findByCuisine)
@@ -145,7 +150,7 @@ const RestaurantsList = props => {
            {cuisines.map(cuisine => {
              return (
               // ".substr" is used to limit the character lengh of each cusine to 20 characters
-               <option value={cuisine}> {cuisine.substring(0, 20)} </option>
+               <option value={cuisine} key={cuisine}> {cuisine.substring(0, 20)} </option>
              )
            })}
         </select>
@@ -163,9 +168,10 @@ const RestaurantsList = props => {
     </div>
     <div className="row">
       {restaurants.map((restaurant) => {
+        console.log(restaurant._id)
         const address = `${restaurant.address.building} ${restaurant.address.street}, ${restaurant.address.zipcode}`;
         return (
-          <div className="col-lg-4 pb-1">
+          <div className="col-lg-4 pb-1" key={restaurant._id}>
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">{restaurant.name}</h5>
@@ -175,6 +181,7 @@ const RestaurantsList = props => {
                 </p>
                 <div className="row">
                 <Link to={"/restaurants/"+restaurant._id} className="btn btn-primary col-lg-5 mx-1 mb-1">
+                {/* <Link to={`/restaurants/${restaurant._id}`} className="btn btn-primary col-lg-5 mx-1 mb-1"> */}
                   View Reviews
                 </Link>
                 <a target="_blank" href={"https://www.google.com/maps/place/" + address} className="btn btn-primary col-lg-5 mx-1 mb-1">View Map</a>

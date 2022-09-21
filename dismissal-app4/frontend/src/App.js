@@ -22,6 +22,7 @@ function App() {
 
   return (
     <div>
+      {/* Copied NavBar from bootstrap */}
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/restaurants" className="navbar-brand">
           Restaurant Reviews
@@ -63,9 +64,7 @@ function App() {
           <Route 
             path="/restaurants/:id"
             element={
-              <Restaurant
-                user={user}
-              />
+              <Restaurant user={user}/>
             }
           />
           <Route 

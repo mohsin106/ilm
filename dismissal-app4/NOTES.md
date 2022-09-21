@@ -54,18 +54,26 @@ You log into the WebUI for MongoDB and go to the "restaurants" collection and th
 
 Now you will be able to search for restarants by the name field.
 
-# How to start backend and frontend
 
-You need first go to dismissal-app4/backend and run `nodemon start`. This will connect to the online MongoDB server.
+# Frontend Architecture
 
-Then you need to start the frontend React by going to dismissal-app4/frontend and run the command `npm start`
+## services/restaurant.js
+Contains all your code that will be used to make API calls to the MongDB backend database.
 
-Now your browser show be displaying a webpage on localhost port 3000. If you click on the Restaurant link you should see all the restaurants listed there and you should be able to search as well.
+Imports the `http-command.js` file which uses Axios.
 
-# How to access Mongo Atlas DB from Mac
-mongosh "mongodb+srv://cluster0.77qzo.mongodb.net/ilm_dismissal" --apiVersion 1 --username mohsin
-password = FTpdTxYwJumSK0V2
+The `RestaurantDataService` class contains the CRUD methods that will be used to get, add, update, and delete data from the database.
 
+
+## http-common.js
+This is our helper file and imports the Axios library.
+Contains the `baseURL` to our backend server `http://localhost:5002/api/v1/restaurants`
+
+
+## components/restaurants-lists.js
+Imports the `RestaurantDataService` class from the `services/restaurant.js` file.
+
+After the page renders this component will call the `retrieveRestaurants` function which calls the `RestaurantDataService.getAll()` method to make a get call to retrieve all the restaurants from the database. 
 
 # MongoDB commands
 
@@ -752,3 +760,15 @@ Atlas atlas-1u9up2-shard-0 [primary] ilm_dismissal> db.testdb.updateMany({ addre
 }
 ```
 
+
+# How to start backend and frontend
+
+You need first go to dismissal-app4/backend and run `nodemon start`. This will connect to the online MongoDB server.
+
+Then you need to start the frontend React by going to dismissal-app4/frontend and run the command `npm start`
+
+Now your browser show be displaying a webpage on localhost port 3000. If you click on the Restaurant link you should see all the restaurants listed there and you should be able to search as well.
+
+# How to access Mongo Atlas DB from Mac
+mongosh "mongodb+srv://cluster0.77qzo.mongodb.net/ilm_dismissal" --apiVersion 1 --username mohsin
+password = FTpdTxYwJumSK0V2

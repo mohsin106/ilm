@@ -42,12 +42,16 @@ export default class RestaurantsController {
   }
 
   // a parameter is anything after the / of the base url, and a query string is anything starting with a ?
+  // when user clicks on "View Reviews" this API is called.
   static async apiGetRestaurantById(req, res, next) {
+    // console.log(req)
     try {
       let id = req.params.id || {}
+      console.log(id)
       let restaurant = await RestaurantsDAO.getRestaurantByID(id)
       if (!restaurant) {
-        res.status(404).json({ error: "Not found" })
+        // res.status(404).json({ error: "Not found" })
+        res.status(404).json({ error: "Bazzinga" })
         return
       }
       res.json(restaurant)

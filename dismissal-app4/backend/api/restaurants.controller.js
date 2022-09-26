@@ -39,15 +39,16 @@ export default class RestaurantsController {
       total_results: totalNumRestaurants,
     }
     res.json(response)  // a JSON response gets sent to browser to display to all the data that the restaurantsDAO.js file returned to this file.
+    // console.log(response)
   }
 
   // a parameter is anything after the / of the base url, and a query string is anything starting with a ?
   // when user clicks on "View Reviews" this API is called.
   static async apiGetRestaurantById(req, res, next) {
-    // console.log(req)
+    // console.log(res)
     try {
       let id = req.params.id || {}
-      console.log(id)
+      console.log(id + "from backend/api/restaurant.controller.js")
       let restaurant = await RestaurantsDAO.getRestaurantByID(id)
       if (!restaurant) {
         // res.status(404).json({ error: "Not found" })

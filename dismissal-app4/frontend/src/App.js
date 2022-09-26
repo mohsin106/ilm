@@ -62,20 +62,16 @@ function App() {
             }
           />
           <Route 
-            path="/restaurants/:id"
+            path="/restaurants/:id" // ":id" will be used by useParams in frontend/src/components/retaurant.js to pull out the "id" variable.
             element={
-              <Restaurant user={user}/>
-            }
-          />
-          <Route 
-            path="/login"
-            element={
-              <Login 
-                login={login} 
-              />
+              <Restaurant user={user} />
             }
           />
           
+          <Route 
+            path="/login"
+            element={ <Login user={user} login={login}/> }
+          />
         </Routes>
       </div>
     </div>

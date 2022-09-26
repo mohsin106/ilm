@@ -79,6 +79,7 @@ export default class RestaurantsDAO {
   }
 
   static async getRestaurantByID(id) {
+    console.log(id + "from backend/dao/restaurantDAO.js")
     try {
       /**
        * pipelines help match different collections together.

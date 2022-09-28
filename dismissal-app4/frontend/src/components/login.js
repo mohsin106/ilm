@@ -1,8 +1,10 @@
 // the orignal App.js was sending the "login" function to here (frontend/src/components/login.js)
 // however, since we're implementing react-router-v6 we cannot use "props.login(user)" and "props.history.push('/')" in here
-// we need to figure out how to send the "login" function from App.js using react-router-v6
+// we pass the "login" function from App.js into this file.
+// when "login" function is called in the "on-click" event, it calls "props.login(user)" to send the "user" info to the login function inside App.js
+// the login info is then set in App.js
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login(props) {
 
@@ -11,7 +13,9 @@ function Login(props) {
     id: "",
   };
 
-  console.log(props)
+  let navigate = useNavigate()
+
+  // console.log(props)
 
   const [user, setUser] = useState(initialUserState);
 
@@ -20,11 +24,10 @@ function Login(props) {
     setUser({ ...user, [name]: value });
   };
 
-  // const login = () => {
-  //   myLogin(user)
-  //   props.login(user)
-  //   props.history.push('/');
-  // }
+  const login = () => {
+    props.login(user)
+    navigate('/restaurants');
+  }
 
   return (
     <div className="submit-form">
@@ -55,7 +58,7 @@ function Login(props) {
           />
         </div>
 
-        <button onClick={() => props.login(user)} className="btn btn-success">
+        <button onClick={() => login(user)} className="btn btn-success">
         {/* <button className="btn btn-success"> */}
           Login
         </button>

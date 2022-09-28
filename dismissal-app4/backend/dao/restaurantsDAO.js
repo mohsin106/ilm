@@ -79,7 +79,7 @@ export default class RestaurantsDAO {
   }
 
   static async getRestaurantByID(id) {
-    console.log(id + "from backend/dao/restaurantDAO.js")
+    console.log(id + " from backend/dao/restaurantDAO.js")
     try {
       /**
        * pipelines help match different collections together.
@@ -128,6 +128,7 @@ export default class RestaurantsDAO {
                   },
               },
           ]
+        console.log(pipeline)
       return await restaurants.aggregate(pipeline).next()
     } catch (e) {
       console.error(`Something went wrong in getRestaurantByID: ${e}`)

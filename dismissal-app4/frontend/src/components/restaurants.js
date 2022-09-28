@@ -1,16 +1,8 @@
+// since we're using react-router-dom v6, we are passing in the "user" prop from App.js to here.
+// the "user" prop contains "user.name" and "user.id" fields.
 import React, { useState, useEffect } from "react"
 import RestaurantDataService from "../services/restaurant.js"
 import { Link, useParams } from "react-router-dom";
-
-// const Restaurant = props => {
-//   const initialRestaurantState = {
-//     id: null,
-//     name: "",
-//     address: {},
-//     cuisine: "",
-//     reviews: []
-//   };
-//   const [restaurant, setRestaurant] = useState(initialRestaurantState);
 
 function Restaurant(props) {
   const [restaurant, setRestaurant] = useState({
@@ -27,8 +19,7 @@ function Restaurant(props) {
   // console.log(id)
   // console.log(restaurant)
   
-  
-  const getRestaurant = id => {
+  function getRestaurant(id) {
     RestaurantDataService.get(id)
     .then(response => {
       setRestaurant(response.data);
@@ -37,20 +28,20 @@ function Restaurant(props) {
     .catch(e => {
       console.log(e);
     });
-  };
+  }
   
   // this useEffect is going to call `getRestaurant()` only when `props.match.params.id` is updated
   useEffect(() => {
     getRestaurant(id);
   }, [id]);
   
-  console.log(props.user.name)
-  console.log(props.user.id)
+  // console.log(props.user.name)
+  // console.log(props.user.id)
 
   // this function will delete a review when you pass it a reviewId, and an index of the review from the review array, 
   // which is defined in `initialRestaurantState`
   // this function references the prevState, then deletes the review we don't want and updates the state to reflect the changes. 
-  const deleteReview = (reviewId, index) => {
+  function deleteReview(reviewId, index) {
     RestaurantDataService.deleteReview(reviewId, props.user.id)
       .then(response => {
         setRestaurant((prevState) => {
@@ -63,12 +54,11 @@ function Restaurant(props) {
       .catch(e => {
         console.log(e);
       });
-  };
-
-  // console.log(restaurant)
+  }
+  // console.log(restaurant.address.building)
   return (
     <div>
-      {/* {restaurant ? ( */}
+      {restaurant ? (
         <div>
           <h5>{restaurant.name}</h5>
           <p>
@@ -96,13 +86,14 @@ function Restaurant(props) {
                        {props.user && props.user.id === review.user_id && // `props.user`, `props.user.id` are coming from App.js
                           <div className="row">
                             <a onClick={() => deleteReview(review._id, index)} className="btn btn-primary col-lg-5 mx-1 mb-1">Delete</a>
-                            <Link to={{
-                              pathname: "/restaurants/" + props.match.params.id + "/review", // this is the route found in "backend/api/restaurants.route.js"
-                              // pathname: "/restaurants/" + props.user.id + "/review", // this is the route found in "backend/api/restaurants.route.js"
+                            {/* <Link to={{
+                              // pathname: "/restaurants/" + props.match.params.id + "/review", // this is the route found in "backend/api/restaurants.route.js"
+                              pathname: "/restaurants/" + id + "/review", // this is the route found in "backend/api/restaurants.route.js"
                               state: {
                                 currentReview: review // pass in the state of the current review to `ReviewsCtrl` in "backend/api/restaurants.route.js"
                               }
-                            }} className="btn btn-primary col-lg-5 mx-1 mb-1">Edit</Link>
+                            }} className="btn btn-primary col-lg-5 mx-1 mb-1">Edit</Link> */}
+                            <Link to={`/restaurants/${id}/review`} state={review}>Edit</Link>
                           </div>                   
                        }
                      </div>
@@ -119,12 +110,12 @@ function Restaurant(props) {
           </div>
 
         </div>
-      {/* ) : (
+      ) : (
         <div>
           <br />
           <p>No restaurant selected.</p>
         </div>
-      )} */}
+      )}
     </div>
     // <div>
     //   hello

@@ -66,7 +66,8 @@ function Restaurant(props) {
             <strong>Address: </strong>{restaurant.address.building} {restaurant.address.street}, {restaurant.address.zipcode}
           </p>
           {/* <Link to={"/restaurants/" + props.match.params.id + "/review"} className="btn btn-primary"> */}
-          <Link to={"/restaurants/" + restaurant.id + "/review"} className="btn btn-primary">
+          {/* <Link to={"/restaurants/" + restaurant.id + "/review"} className="btn btn-primary"> */}
+          <Link to={`/restaurants/${id}/review`} className="btn btn-primary">
             Add Review
           </Link>
           <h4> Reviews </h4>
@@ -93,7 +94,8 @@ function Restaurant(props) {
                                 currentReview: review // pass in the state of the current review to `ReviewsCtrl` in "backend/api/restaurants.route.js"
                               }
                             }} className="btn btn-primary col-lg-5 mx-1 mb-1">Edit</Link> */}
-                            <Link to={`/restaurants/${id}/review`} state={review}>Edit</Link>
+                            {/* Below link will send you to the /restaurants/:id/review route that App.js will recognize and then call the "AddReview Component" */}
+                            <Link to={`/restaurants/${id}/review`} state={review} className="btn btn-primary col-lg-5 mx-1 mb-1">Edit</Link>
                           </div>                   
                        }
                      </div>

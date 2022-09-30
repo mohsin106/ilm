@@ -30,6 +30,7 @@ const RestaurantsList = props => {
     
   };
 
+  // this function is calling the "getAll"
   const retrieveRestaurants = () => {
     RestaurantDataService.getAll()
       .then(response => {

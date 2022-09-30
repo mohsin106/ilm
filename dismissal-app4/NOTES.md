@@ -772,3 +772,8 @@ Now your browser show be displaying a webpage on localhost port 3000. If you cli
 # How to access Mongo Atlas DB from Mac
 mongosh "mongodb+srv://cluster0.77qzo.mongodb.net/ilm_dismissal" --apiVersion 1 --username mohsin
 password = FTpdTxYwJumSK0V2
+
+
+# Mongo DB Realm
+MogoDB Realm replaces the "E" & "N" (express and node.js) from the "MERN" stack.
+The backend and frontend get hosted in the cloud.

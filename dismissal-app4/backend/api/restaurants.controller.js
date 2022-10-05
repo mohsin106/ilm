@@ -9,7 +9,6 @@ export default class RestaurantsController {
     // if a page key:value is passed in with the URL we are going to convert it to an int and assign it to the "page" var here, otherwise set the default to 0
     const page = req.query.page ? parseInt(req.query.page, 10) : 0
 
-
     let filters = {}
     // extract all of the filters out from the URL ("cuisine", "zipcode", "name")
     if (req.query.cuisine) {
@@ -21,7 +20,7 @@ export default class RestaurantsController {
     }
 
     // console.log(req.query)
-    // console.log(filters.cuisine)
+    // console.log(filters)
     // console.log(filters.zipcode)
 
     // get the "restaurantsList" and "totalNumRestaurants" data back from "RestaurantsDAO.getRestaurants"
@@ -48,7 +47,7 @@ export default class RestaurantsController {
     // console.log(res)
     try {
       let id = req.params.id || {}
-      console.log(id + " from backend/api/restaurant.controller.js")
+      // console.log(id + " from backend/api/restaurant.controller.js")
       let restaurant = await RestaurantsDAO.getRestaurantByID(id)
       if (!restaurant) {
         // res.status(404).json({ error: "Not found" })

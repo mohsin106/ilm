@@ -24,7 +24,7 @@ export default class RestaurantsDAO {
       )
     }
   }
-
+  
   // after the connection to the DB is made this method is run, which gets a listing of all the restaurants
   static async getRestaurants({
     // these are all the options you can set to help query your data.
@@ -33,7 +33,7 @@ export default class RestaurantsDAO {
     restaurantsPerPage = 20,    // default to show 20 restaurants per page
   } = {}) {
     let query
-    // console.log(filters)
+    console.log(filters)
     if (filters) {  // if there are filters defined above then:
       // if "name" is in filters then search by name
       if ("name" in filters) {
@@ -54,7 +54,7 @@ export default class RestaurantsDAO {
     try {
       cursor = await restaurants
         .find(query)  //This find() method return a cursor with contain all documents present in the restaurants collection.
-        // console.log(cursor)
+        console.log(query)
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`)
       return { restaurantsList: [], totalNumRestaurants: 0 }
@@ -79,7 +79,7 @@ export default class RestaurantsDAO {
   }
 
   static async getRestaurantByID(id) {
-    console.log(id + " from backend/dao/restaurantDAO.js")
+    // console.log(id + " from backend/dao/restaurantDAO.js")
     try {
       /**
        * pipelines help match different collections together.
@@ -128,7 +128,7 @@ export default class RestaurantsDAO {
                   },
               },
           ]
-        console.log(pipeline)
+        // console.log(pipeline)
       return await restaurants.aggregate(pipeline).next()
     } catch (e) {
       console.error(`Something went wrong in getRestaurantByID: ${e}`)

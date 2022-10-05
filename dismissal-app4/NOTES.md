@@ -759,7 +759,33 @@ Atlas atlas-1u9up2-shard-0 [primary] ilm_dismissal> db.testdb.updateMany({ addre
   upsertedCount: 0
 }
 ```
+# Update many based on condition
+Set the `dismissed` field to `true` if its currently `false`.
 
+Atlas atlas-1u9up2-shard-0 [primary] ilm> db.students.updateMany( {}, [ { $set: { dismissed: { $switch: { branches: [ { case: { $eq: ["$dismissed", false] }, then: true }], default: "" } } } }])
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 7,
+  modifiedCount: 7,
+  upsertedCount: 0
+}
+
+Update `dateDismissed` to `""` if `dismissed` is set to `false`.
+
+ ```
+ db.students.updateMany(
+    { },
+    [
+      { $set: { dateDismissed: { $switch: {
+                             branches: [
+                                 { case: { $eq: [ "$dismissed", false]}, then: ""}
+                             ],
+                             default: ""
+      }}} }
+    ]
+ )
+ ```
 
 # How to start backend and frontend
 

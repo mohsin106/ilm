@@ -690,6 +690,9 @@ Atlas atlas-1u9up2-shard-0 [primary] ilm_dismissal> db.testdb.find( { _id: Objec
 
 ```
 
+### Rename all columns. (ex: rename "dateDismissed" to "lastDismissed")
+Atlas atlas-1u9up2-shard-0 [primary] ilm> db.students.updateMany({}, { $rename: {dateDismissed: "lastDismissed"}})
+
 ## Delete a column
 You need to use the `$unset` syntax
 ```
